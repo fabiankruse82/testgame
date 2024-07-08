@@ -2,8 +2,6 @@ Use W, A, S, D keys to move the cube.
 
 Press Space to make the cube jump.
 
-sound effects and music - licence free from pixabay.com
-
 Modules
 Box.js: Defines the Box class for creating 3D boxes.
 boxCollision.js: Contains the collision detection logic.

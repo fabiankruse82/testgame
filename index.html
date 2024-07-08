@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Three.js Game</title>
-  <style>
-    body {
-      margin: 0;
-      background: #0c4a6e;
-    }
-  </style>
+  <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
+  <div id="video-container">
+    <video id="intro-video" src="src/assets/Surprise.mp4" autoplay></video>
+  </div>
+  <div id="title-screen">
+    <img src="src/assets/biber blokki.jpg" alt="Title Screen">
+    <div id="press-key">Press any key to continue...</div>
+  </div>
+  
   <audio id="background-music" src="src/sounds/punk_pop-182468.mp3" loop></audio>
   <audio id="move-sound" src="src/sounds/089048_woosh-slide-in-88642.mp3"></audio>
   <audio id="jump-sound" src="src/sounds/toy-button-105724.mp3"></audio>
