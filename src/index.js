@@ -22,6 +22,36 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
+const backgroundMusic = new THREE.Audio(listener);
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('src/sounds/punk_pop-182468.mp3', function(buffer) {
+  backgroundMusic.setBuffer(buffer);
+  backgroundMusic.setLoop(true);
+  backgroundMusic.setVolume(0.5);
+  backgroundMusic.play();
+});
+
+const moveSound = new THREE.Audio(listener);
+audioLoader.load('src/sounds/089048_woosh-slide-in-88642.mp3', function(buffer) {
+  moveSound.setBuffer(buffer);
+  moveSound.setVolume(0.5);
+});
+
+const jumpSound = new THREE.Audio(listener);
+audioLoader.load('src/sounds/toy-button-105724.mp3', function(buffer) {
+  jumpSound.setBuffer(buffer);
+  jumpSound.setVolume(0.5);
+});
+
+const collisionSound = new THREE.Audio(listener);
+audioLoader.load('src/sounds/ough-47202.mp3', function(buffer) {
+  collisionSound.setBuffer(buffer);
+  collisionSound.setVolume(0.5);
+});
+
 const cube = new Box({
   width: 1,
   height: 1,
@@ -65,22 +95,32 @@ const keys = {
   w: { pressed: false }
 };
 
+function playSound(sound) {
+  if (sound.isPlaying) sound.stop();
+  sound.play();
+}
+
 window.addEventListener('keydown', (event) => {
   switch (event.code) {
     case 'KeyA':
       keys.a.pressed = true;
+      playSound(moveSound);
       break;
     case 'KeyD':
       keys.d.pressed = true;
+      playSound(moveSound);
       break;
     case 'KeyS':
       keys.s.pressed = true;
+      playSound(moveSound);
       break;
     case 'KeyW':
       keys.w.pressed = true;
+      playSound(moveSound);
       break;
     case 'Space':
       cube.velocity.y = 0.08;
+      playSound(jumpSound);
       break;
   }
 });
@@ -123,6 +163,7 @@ function animate() {
   enemies.forEach((enemy) => {
     enemy.update(ground);
     if (boxCollision({ box1: cube, box2: enemy })) {
+      playSound(collisionSound);
       cancelAnimationFrame(animationId);
     }
   });
